@@ -1,4 +1,4 @@
-#  TWRP Device Tree for Redmi/POCO miholi devices (codenamed _moonstone/sunstone/veux/peux_)
+#  TWRP Device Tree for Redmi 13/POCO M6 devices (codenamed _moon_)
 
 ## Device specifications
 
