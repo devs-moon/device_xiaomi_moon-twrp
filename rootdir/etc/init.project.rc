@@ -1,0 +1,134 @@
+import /vendor/etc/init/hw/init.mtkgki.rc
+
+# N19A code for HQ-353394 by p-xuzhirong at 20231215 start
+import /vendor/odm/etc/init/${ro.boot.product.hardware.sku}/android.hardware.nfc@1.2-service.rc
+import /vendor/odm/etc/init/${ro.boot.product.hardware.sku}/android.hardware.secure_element@1.2-service-mediatek.rc
+# N19A code for HQ-353394 by p-xuzhirong at 20231215 end
+# N19A code for HQ-360358 by p-xuzhirong at 20240101 start
+import /vendor/odm/etc/init/${ro.boot.product.hardware.sku}/android.hardware.wired_se@1.0-service-tms.rc
+import /vendor/odm/etc/init/${ro.boot.product.hardware.sku}/android.hardware.secure_element@1.2-service-tms.rc
+import /vendor/odm/etc/init/${ro.boot.product.hardware.sku}/android.hardware.nfc@1.2-service-tms.rc
+# N19A code for HQ-360358 by p-xuzhirong at 20240101 end
+
+# MTK project .rc configure
+
+on early-init
+    exec_background u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules trace_mmstat.ko
+
+on init
+    mkdir /mnt/media_rw/usbotg 0700 media_rw media_rw
+    mkdir /storage/usbotg 0700 root root
+
+on post-fs-data
+
+#Camera
+    chmod 0660 /dev/MAINAF
+    chown system camera /dev/MAINAF
+
+    chmod 0660 /dev/MAINAF2
+    chown system camera /dev/MAINAF2
+
+    chmod 0660 /dev/SUBAF
+    chown system camera /dev/SUBAF
+
+    chmod 0660 /dev/GAF001AF
+    chown system camera /dev/GAF001AF
+
+    chmod 0660 /dev/DW9714AF
+    chown system camera /dev/DW9714AF
+
+    chmod 0660 /dev/LC898212AF
+    chown system camera /dev/LC898212AF
+
+    chmod 0660 /dev/BU64745GWZAF
+    chown system camera /dev/BU64745GWZAF
+
+# N19A code for HQ-353545 by sunyuting at 2023/12/13 start
+    mkdir /data/system/silead 0770 system system
+    chown system system /dev/silead_fp
+    chmod 0644 /dev/silead_fp
+    chown system system /dev/goodix_fp
+    chmod 0644 /dev/goodix_fp
+# N19A code for HQ-353545 by sunyuting at 2023/12/13 end
+
+# MIUI ADD: Performance_BoostFramework
+    chown system system /sys/module/perf_helper/mimd/mimdtrigger
+# END Performance_BoostFramework
+
+#SMB
+    chown system system /proc/smb/ScreenComm
+    chmod 0660 /proc/smb/ScreenComm
+
+    chmod 0660 /dev/spm
+    chown system system /dev/spm
+
+#N19A code for HQ-347955 by chenyushuai at 2024/01/01 start
+#touch
+    chown system system /sys/class/touch/touch_dev/palm_sensor
+#N19A code for HQ-347955 by chenyushuai at 2024/01/01 end
+
+on init
+    # Refer to http://source.android.com/devices/tech/storage/index.html
+    # It said, "Starting in Android 4.4, multiple external storage devices are surfaced to developers through
+    #           Context.getExternalFilesDirs(), Context.getExternalCacheDirs(), and Context.getObbDirs().
+    #           External storage devices surfaced through these APIs must be a semi-permanent part of the device (such as an SD card slot in a battery compartment).
+    #           Developers expect data stored in these locations to be available over long periods of time."
+    # Therefore, if the target doesn't support sd hot-plugging (Ex: the SD card slot in a battery compartment), we need to export SECONDARY_STORAGE in 'boot' section
+    #
+    # export SECONDARY_STORAGE /storage/sdcard1
+
+#displayfeature
+on boot
+    chown system system /sys/devices/virtual/mi_display/disp_feature/disp-DSI-0/doze_brightness
+    chmod 0777 /sys/devices/virtual/mi_display/disp_feature/disp-DSI-0/doze_brightness
+    chmod 0777 /sys/class/mi_display/disp-DSI-0/brightness_clone
+    chown system system /sys/class/mi_display/disp-DSI-0/brightness_clone
+    chmod 0777 /dev/mi_display/disp_feature
+    chown system system /dev/mi_display/disp_feature
+    chmod 0777 /sys/class/mi_display/disp-DSI-0/disp_param
+    chown system system /sys/class/mi_display/disp-DSI-0/disp_param
+
+service fuse_usbotg /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/usbotg /storage/usbotg
+    class late_start
+    disabled
+
+# N19A code for HQ-353420 by p-huyue10 at 20231219 start
+on property:vendor.sysctl.tx=0
+    exec /vendor/bin/iwpriv wlan0 driver "SET_PWR_CTRL MySar 2"
+on property:vendor.sysctl.tx=1
+    exec /vendor/bin/iwpriv wlan0 driver "SET_PWR_CTRL MySar 1"
+
+service sarcalibration /vendor/bin/sns_sensors_test_and_cal -c 72,3,50000000,0
+    class main
+    user root
+    disabled
+    oneshot
+    group root system
+    seclabel u:r:sardiag:s0
+# N19A code for HQ-353420 by p-huyue10 at 20231219 end
+
+# N19A code for HQ-348436 by p-huyue10 at 20240109 start
+# TouchPad nvt settings for tp_grip_area
+on property:sys.tp.grip_enable=0
+    write /proc/nvt_edge_reject_switch 1
+on property:sys.tp.grip_enable=90
+    write /proc/nvt_edge_reject_switch 3
+on property:sys.tp.grip_enable=270
+    write /proc/nvt_edge_reject_switch 2
+
+# TouchPad fts settings for tp_grip_area
+on property:sys.tp.grip_enable=0
+    write /sys/bus/spi/devices/spi0.0/fts_edge_mode 0
+on property:sys.tp.grip_enable=90
+    write /sys/bus/spi/devices/spi0.0/fts_edge_mode 1
+on property:sys.tp.grip_enable=270
+    write /sys/bus/spi/devices/spi0.0/fts_edge_mode 2
+# N19A code for HQ-348436 by p-huyue10 at 20240109 end
+
+# start mmstat
+on property:sys.boot_completed=1
+    mkdir /sys/kernel/tracing/instances/mmstat 711
+    write /sys/kernel/tracing/instances/mmstat/tracing_on 0
+    write /sys/kernel/tracing/instances/mmstat/buffer_size_kb 16
+    write /sys/kernel/tracing/instances/mmstat/events/mmstat/enable 1
+    write /sys/kernel/tracing/instances/mmstat/tracing_on 1
