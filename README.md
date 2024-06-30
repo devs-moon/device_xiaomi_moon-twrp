@@ -22,4 +22,4 @@
 
 ## Device picture
 
-![Redmi 13/POCO M6 ](https://fdn2.gsmarena.com/vv/bigpic/xiaomi-redmi-13-.jpg)
+![Redmi 13/POCO M6 ](https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-redmi-13-1.jpg)
