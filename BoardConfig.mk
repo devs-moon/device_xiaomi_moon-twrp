@@ -23,6 +23,9 @@ AB_OTA_PARTITIONS += \
     vendor \
     vendor_boot
 
+# Avb
+BOARD_AVB_ENABLE := true
+
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
