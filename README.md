@@ -22,5 +22,5 @@
 
 ## Device picture
 
-![Xiaomi 12 Lite ](![image](https://github.com/devs-moon/device_xiaomi_moon-twrp/assets/76810719/e5e245e7-ff8e-410d-ae49-740e0a45233c)
+![Redmi 13/POCO M6 ](!(https://github.com/devs-moon/device_xiaomi_moon-twrp/assets/76810719/e5e245e7-ff8e-410d-ae49-740e0a45233c)
 )
