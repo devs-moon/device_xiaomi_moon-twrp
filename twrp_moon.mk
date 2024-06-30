@@ -14,10 +14,10 @@ $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 # Inherit from generic device
 $(call inherit-product, device/xiaomi/generic/device.mk)
 
-PRODUCT_DEVICE := generic
-PRODUCT_NAME := lineage_generic
-PRODUCT_BRAND := Android
-PRODUCT_MODEL := mainline
+PRODUCT_DEVICE := moon
+PRODUCT_NAME := twrp_moon
+PRODUCT_BRAND := Redmi
+PRODUCT_MODEL := Redmi 13
 PRODUCT_MANUFACTURER := xiaomi
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
@@ -25,4 +25,4 @@ PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 PRODUCT_BUILD_PROP_OVERRIDES += \
     PRIVATE_BUILD_DESC="missi_phone_global-user 14 UP1A.231005.007 V816.0.4.0.UNTMIXM release-keys"
 
-BUILD_FINGERPRINT := Android/missi_phone_global/missi:14/UP1A.231005.007/V816.0.4.0.UNTMIXM:user/release-keys
+BUILD_FINGERPRINT := Redmi/moon_global/moon:14/UP1A.231005.007/V816.0.4.0.UNTMIXM:user/release-keys
