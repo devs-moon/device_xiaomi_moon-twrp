@@ -127,27 +127,11 @@ TW_USE_FSCRYPT_POLICY := 2
 			     
 # TWRP specific build flags
 TW_THEME := portrait_hdpi
-RECOVERY_SDCARD_ON_DATA := true
-TARGET_RECOVERY_QCOM_RTC_FIX := true
-TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_EXTRA_LANGUAGES := true
-TW_INCLUDE_NTFS_3G := true
-TW_USE_TOOLBOX := true
+TW_SCREEN_BLANK_ON_BOOT := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
-TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
-TW_MAX_BRIGHTNESS := 2047
-TW_DEFAULT_BRIGHTNESS := 200
-TW_NO_SCREEN_BLANK := true
-TW_EXCLUDE_APEX := true
-TW_HAS_EDL_MODE := false
+TW_USE_TOOLBOX := true
 TW_INCLUDE_REPACKTOOLS := true
-TW_INCLUDE_RESETPROP := true
-TW_INCLUDE_LIBRESETPROP := true
-TW_FRAMERATE := 60
-#TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko"
-TW_CUSTOM_CPU_TEMP_PATH := "/sys/class/thermal/thermal_zone20/temp"
-TW_BATTERY_SYSFS_WAIT_SECONDS := 5
-TW_BACKUP_EXCLUSIONS := /data/fonts
 
 # TWRP Debug Flags
 TWRP_INCLUDE_LOGCAT := true
