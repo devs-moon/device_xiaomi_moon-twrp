@@ -64,8 +64,8 @@ BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
 BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_KERNEL_SEPARATED_DTBO := true
-#TARGET_KERNEL_CONFIG := moon_defconfig
-#TARGET_KERNEL_SOURCE := kernel/xiaomi/moon
+TARGET_KERNEL_CONFIG := moon_defconfig
+TARGET_KERNEL_SOURCE := kernel/xiaomi/moon
 
 # Kernel - prebuilt
 TARGET_FORCE_PREBUILT_KERNEL := true
@@ -144,7 +144,7 @@ TW_INCLUDE_REPACKTOOLS := true
 TW_INCLUDE_RESETPROP := true
 TW_INCLUDE_LIBRESETPROP := true
 TW_FRAMERATE := 60
-TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko"
+#TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko"
 TW_CUSTOM_CPU_TEMP_PATH := "/sys/class/thermal/thermal_zone20/temp"
 TW_BATTERY_SYSFS_WAIT_SECONDS := 5
 TW_BACKUP_EXCLUSIONS := /data/fonts
